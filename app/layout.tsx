@@ -26,7 +26,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main className="py-14">{children}</main>
+          {children}
         </ThemeProvider>
       </body>
     </html>
