@@ -4,12 +4,12 @@ import DarkModeSwitch from "../darkModeSwitch/DarkModeSwitch";
 
 export default function Header() {
   return (
-    <header className="bg-main w-full h-14 flex flex-col items-center justify-center fixed top-0 z-50">
+    <header className="bg-background border-b border-main w-full h-14 flex flex-col items-center justify-center fixed top-0 z-50">
       <div className="w-[1400px] flex justify-between items-center gap-4 px-4">
-        <h1 className="flex-none text-2xl font-bold text-white">
+        <h1 className="flex-none text-2xl font-bold">
           <Link href="/">OrrNrr</Link>
         </h1>
-        <ul className="flex-auto  flex text-white px-4 gap-6">
+        <ul className="flex-auto  flex px-4 gap-6">
           <li>
             <Link href="/exchange">거래소</Link>
           </li>
@@ -20,7 +20,7 @@ export default function Header() {
         <div className="flex items-center">
           <DarkModeSwitch />
         </div>
-        <ul className="flex items-center gap-4 text-white">
+        <ul className="flex items-center gap-4">
           <li>
             <Link href="/login">로그인</Link>
           </li>
