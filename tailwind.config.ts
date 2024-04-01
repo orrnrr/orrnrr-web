@@ -55,6 +55,12 @@ const config = {
         main: {
           DEFAULT: "hsl(var(--main))",
         },
+        rise: {
+          DEFAULT: "hsl(var(--rise))",
+        },
+        fall: {
+          DEFAULT: "hsl(var(--fall))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
