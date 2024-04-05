@@ -1,6 +1,6 @@
 "use client";
 
-import { ColorType, createChart } from "lightweight-charts";
+import { ColorType, IChartApi, createChart } from "lightweight-charts";
 import { useEffect, useRef } from "react";
 
 interface ChartProps {
@@ -16,10 +16,11 @@ export default function Chart({ candleColor }: ChartProps) {
   ];
 
   const chartContainerRef = useRef<HTMLDivElement>(null);
+  const chartApiRef = useRef<IChartApi | null>(null);
 
   useEffect(() => {
     if (chartContainerRef.current) {
-      const chart = createChart(chartContainerRef.current, {
+      chartApiRef.current = createChart(chartContainerRef.current, {
         layout: {
           background: { type: ColorType.Solid, color: "white" },
           textColor: "black",
@@ -27,7 +28,7 @@ export default function Chart({ candleColor }: ChartProps) {
         width: chartContainerRef.current.clientWidth,
         height: 300,
       });
-      const candlestickSeries = chart.addCandlestickSeries({
+      const candlestickSeries = chartApiRef.current.addCandlestickSeries({
         upColor: candleColor === "orrnrr" ? "#FF5B6F" : "#FF0000",
         downColor: candleColor === "orrnrr" ? "#00C7DE" : "#0000FF",
         borderVisible: false,
@@ -36,10 +37,15 @@ export default function Chart({ candleColor }: ChartProps) {
       });
 
       candlestickSeries.setData([...tmpCandleData]);
-      chart.timeScale().fitContent();
+      chartApiRef.current.timeScale().fitContent();
     }
 
-    return () => {};
+    return () => {
+      if (chartApiRef.current) {
+        chartApiRef.current.remove();
+        chartApiRef.current = null;
+      }
+    };
   }, [candleColor]);
   return <div ref={chartContainerRef} />;
 }
