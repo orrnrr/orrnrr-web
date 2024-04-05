@@ -1,19 +1,21 @@
 "use client";
 
+import Chart from "@/components/chart/Chart";
 import { Button } from "@/components/ui/button";
-import { useTheme } from "next-themes";
+import { useState } from "react";
 
 export default function Home() {
-  const { theme, setTheme } = useTheme();
-  console.log("theme", theme);
+  const [candleColor, setCandleColor] = useState<"orrnrr" | "basic">("orrnrr");
+  console.log(candleColor);
   return (
     <>
+      <Chart candleColor={candleColor} />
       <Button
-        className="dark:decoration-sky-300"
-        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        onClick={() =>
+          setCandleColor(candleColor === "orrnrr" ? "basic" : "orrnrr")
+        }
       >
-        <span className="scale-100 dark:scale-0">라이트</span>
-        <span className="scale-0 dark:scale-100">다크</span>
+        캔들색 변경
       </Button>
     </>
   );

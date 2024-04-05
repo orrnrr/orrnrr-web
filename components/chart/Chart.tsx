@@ -3,67 +3,43 @@
 import { ColorType, createChart } from "lightweight-charts";
 import { useEffect, useRef } from "react";
 
-const initialData = [
-  { time: "2018-12-22", value: 32.51 },
-  { time: "2018-12-23", value: 31.11 },
-  { time: "2018-12-24", value: 27.02 },
-  { time: "2018-12-25", value: 27.32 },
-  { time: "2018-12-26", value: 25.17 },
-  { time: "2018-12-27", value: 28.89 },
-  { time: "2018-12-28", value: 25.46 },
-  { time: "2018-12-29", value: 23.92 },
-  { time: "2018-12-30", value: 22.68 },
-  { time: "2018-12-31", value: 22.67 },
-];
+interface ChartProps {
+  candleColor: "orrnrr" | "basic";
+}
 
-export default function Chart() {
-  const data = initialData;
-  const colors = {
-    backgroundColor: "white",
-    lineColor: "#2962FF",
-    textColor: "black",
-    areaTopColor: "#2962FF",
-    areaBottomColor: "rgba(41, 98, 255, 0.28)",
-  };
+export default function Chart({ candleColor }: ChartProps) {
+  const tmpCandleData = [
+    { time: "2019-05-22", open: 59.09, high: 59.37, low: 58.96, close: 59.25 },
+    { time: "2019-05-23", open: 59.0, high: 59.27, low: 58.54, close: 58.87 },
+    { time: "2019-05-24", open: 59.07, high: 59.36, low: 58.67, close: 59.32 },
+    { time: "2019-05-28", open: 59.21, high: 59.66, low: 59.02, close: 59.57 },
+  ];
 
-  const chartContainerRef = useRef();
+  const chartContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleResize = () => {
-      chart.applyOptions({ width: chartContainerRef.current.clientWidth });
-    };
+    if (chartContainerRef.current) {
+      const chart = createChart(chartContainerRef.current, {
+        layout: {
+          background: { type: ColorType.Solid, color: "white" },
+          textColor: "black",
+        },
+        width: chartContainerRef.current.clientWidth,
+        height: 300,
+      });
+      const candlestickSeries = chart.addCandlestickSeries({
+        upColor: candleColor === "orrnrr" ? "#FF5B6F" : "#FF0000",
+        downColor: candleColor === "orrnrr" ? "#00C7DE" : "#0000FF",
+        borderVisible: false,
+        wickUpColor: candleColor === "orrnrr" ? "#FF5B6F" : "#FF0000",
+        wickDownColor: candleColor === "orrnrr" ? "#00C7DE" : "#0000FF",
+      });
 
-    const chart = createChart(chartContainerRef.current, {
-      layout: {
-        background: { type: ColorType.Solid, color: backgroundColor },
-        textColor,
-      },
-      width: chartContainerRef.current.clientWidth,
-      height: 300,
-    });
-    chart.timeScale().fitContent();
+      candlestickSeries.setData([...tmpCandleData]);
+      chart.timeScale().fitContent();
+    }
 
-    const newSeries = chart.addAreaSeries({
-      lineColor,
-      topColor: areaTopColor,
-      bottomColor: areaBottomColor,
-    });
-    newSeries.setData(data);
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-
-      chart.remove();
-    };
-  }, [
-    data,
-    backgroundColor,
-    lineColor,
-    textColor,
-    areaTopColor,
-    areaBottomColor,
-  ]);
+    return () => {};
+  }, [candleColor]);
   return <div ref={chartContainerRef} />;
 }
