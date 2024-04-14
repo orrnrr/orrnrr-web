@@ -1,7 +1,9 @@
 "use client";
 
 import Chart from "@/components/chart/Chart";
+import Order from "@/components/order/Order";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useState } from "react";
 
 export default function Home() {
@@ -9,14 +11,9 @@ export default function Home() {
   console.log(candleColor);
   return (
     <>
-      <Chart candleColor={candleColor} />
-      <Button
-        onClick={() =>
-          setCandleColor(candleColor === "orrnrr" ? "basic" : "orrnrr")
-        }
-      >
-        캔들색 변경
-      </Button>
+      <Card className="w-[490px] px-4 py-6">
+        <Order />
+      </Card>
     </>
   );
 }
