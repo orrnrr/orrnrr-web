@@ -1,3 +1,9 @@
+import Chart from "@/components/chart/Chart";
+
 export default function Exchange() {
-  return <>거래소 페이지</>;
+  return (
+    <>
+      <Chart />
+    </>
+  );
 }
