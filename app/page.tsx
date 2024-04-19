@@ -2,6 +2,7 @@
 
 import Chart from "@/components/chart/Chart";
 import Order from "@/components/order/Order";
+import RealTimeOrder from "@/components/realTimeOrder/RealTimeOrder";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useState } from "react";
@@ -12,7 +13,7 @@ export default function Home() {
   return (
     <>
       <Card className="w-[490px] px-4 py-6">
-        <Order />
+        <RealTimeOrder />
       </Card>
     </>
   );
