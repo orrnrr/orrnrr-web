@@ -1,6 +1,7 @@
+import { useEffect } from "react";
 import { ScrollArea } from "../ui/scroll-area";
 
-const sampleList = [
+const sampleSellList = [
   {
     id: 0,
     usd: "148.47",
@@ -51,6 +52,9 @@ const sampleList = [
     usd: "148.38",
     per: "-0.83%",
   },
+];
+
+const sampleBuyList = [
   {
     id: 10,
     usd: "148.28",
@@ -108,13 +112,39 @@ const sampleCurrent = "148.36";
 export default function GeneralOrderList() {
   return (
     <>
-      <ScrollArea className="h-[600px] bg-slate-200">
-        {sampleList.map((item) => (
-          <div key={item.id} className="bg-red-50 h-[40px]">
-            <span className="text-base ">{item.usd}</span>
-            <span className="text-sm">{item.per}</span>
-          </div>
-        ))}
+      <ScrollArea className="h-[600px]">
+        <div className="flex gap-[1px]">
+          <ul className="w-[321px] flex flex-col gap-[1px]">
+            {sampleSellList.map((item) => (
+              <li key={item.id} className="flex gap-[1px] h-[40px]">
+                <div className="w-[160px] bg-blue-100 flex items-center justify-end px-3">
+                  1
+                </div>
+                <div className="w-[160px] bg-blue-100 flex gap-[10px] items-center justify-end px-3">
+                  <p className="text-base">{item.usd}</p>
+                  <span className="text-xs">{item.per}</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className="w-[160px]"></div>
+        </div>
+        <div className="flex gap-[1px]">
+          <div className="w-[160px]"></div>
+          <ul className="w-[321px] flex flex-col gap-[1px]">
+            {sampleBuyList.map((item) => (
+              <li key={item.id} className="flex gap-[1px] h-[40px]">
+                <div className="w-[160px] bg-red-100 flex gap-[10px] items-center justify-end px-3">
+                  <p className="text-base">{item.usd}</p>
+                  <span className="text-xs">{item.per}</span>
+                </div>
+                <div className="w-[160px] bg-red-100 flex items-center justify-start px-3">
+                  1
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </ScrollArea>
       <div className="h-[40px] bg-pink-50"></div>
     </>
